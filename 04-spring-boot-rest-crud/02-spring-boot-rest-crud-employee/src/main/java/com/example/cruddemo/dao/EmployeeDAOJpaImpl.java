@@ -10,7 +10,7 @@ import java.util.List;
 
 @Repository
 @RequiredArgsConstructor
-public class EmployeeDAOJpaImpl implements EmployeeDAO{
+public class EmployeeDAOJpaImpl implements EmployeeDAO {
 
     private final EntityManager entityManager;
 
@@ -22,5 +22,23 @@ public class EmployeeDAOJpaImpl implements EmployeeDAO{
         List<Employee> employees = theQuery.getResultList();
 
         return employees;
+    }
+
+    @Override
+    public Employee findById(long id) {
+        Employee theEmployee = entityManager.find(Employee.class, id);
+        return theEmployee;
+    }
+
+    @Override
+    public Employee save(Employee employee) {
+        Employee dbEmployee = entityManager.merge(employee);
+        return dbEmployee;
+    }
+
+    @Override
+    public void deleteById(long id) {
+        Employee theEmployee = entityManager.find(Employee.class, id);
+        entityManager.remove(theEmployee);
     }
 }
