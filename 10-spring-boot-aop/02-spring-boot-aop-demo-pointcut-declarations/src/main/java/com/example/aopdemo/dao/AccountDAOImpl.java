@@ -25,7 +25,7 @@ public class AccountDAOImpl implements AccountDAO {
 
     @Override
     public String getName() {
-        System.out.println(getClass() +": in getName()");
+        System.out.println(getClass() + ": in getName()");
         return name;
     }
 
@@ -49,10 +49,20 @@ public class AccountDAOImpl implements AccountDAO {
 
     @Override
     public List<Account> findAccounts() {
-        List<Account> myAccounts = new ArrayList<>();
-        myAccounts.add(new Account("John", "Silver"));
-        myAccounts.add(new Account("Madhu", "Platinum"));
-        myAccounts.add(new Account("Luca", "Gold"));
-        return myAccounts;
+        return findAccounts(false);
+    }
+
+    @Override
+    public List<Account> findAccounts(boolean shouldThrowException) {
+        if (shouldThrowException) {
+            throw new RuntimeException("NO accounts found!");
+        } else {
+
+            List<Account> myAccounts = new ArrayList<>();
+            myAccounts.add(new Account("John", "Silver"));
+            myAccounts.add(new Account("Madhu", "Platinum"));
+            myAccounts.add(new Account("Luca", "Gold"));
+            return myAccounts;
+        }
     }
 }
